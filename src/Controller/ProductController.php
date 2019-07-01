@@ -64,7 +64,7 @@ class ProductController extends AbstractController
      * @param Product $product
      * @return Response
      */
-    public function update(Request $requestHTTP, string $slug): Response
+    public function update(Request $requestHTTP, string $product): Response
     {
         // Récupération du formulaire
         $formProduct = $this->createForm(ProductType::class, $product);

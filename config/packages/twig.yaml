@@ -4,4 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes: 
         - 'bootstrap_4_layout.html.twig'
-        #- 'views/materialize_layout.html.twig' #Ne marche pas =(, enfin je n'arrive pas a le faire marcher
+        #- 'templates/materialize_layout.html.twig' #Ne marche pas =(, enfin je n'arrive pas a le faire marcher

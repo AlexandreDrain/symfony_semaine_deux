@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un produit</h1>
+    {{ form_start(updateForm) }}
+        {{ form_widget(updateForm) }}
+            <input type="submit" value="Modifier le produit" class="btn btn-warning">
+    {{ form_end(updateForm) }}
+{% endblock %}
