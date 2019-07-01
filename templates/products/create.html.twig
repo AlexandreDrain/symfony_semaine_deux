@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{#% block stylesheets %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{% endblock %#}
+
+{% block body %}
+    <h1>Ajouter un produit</h1>
+    {{ form(formProduct) }}
+{% endblock %}
+
+{#% block javascripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %#}
