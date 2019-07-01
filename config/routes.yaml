@@ -1,11 +1,13 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+# ------------HOMEPAGE--------------#
 app_homepage:
     path: /
     controller: App\Controller\HomeController::index
+# ------------PRODUCT--------------#
 app_product_create:
-    path: /products/create
+    path: /admin/products/create
     controller: App\Controller\ProductController::create
     methods: ['GET', 'POST']
 app_product_liste:
@@ -13,13 +15,13 @@ app_product_liste:
     controller: App\Controller\ProductController::liste
     methods: ['GET']
 app_product_update:
-    path: /products/update
+    path: /admin/products/update
     controller: App\Controller\ProductController::update
     requirements: 
         slug: '[a-z0-9\-]+'
     methods: ['GET', 'POST']
 app_product_delete:
-    path: /products/suppression/jesuissur/delete
+    path: /admin/products/suppression/jesuissur/delete
     controller: App\Controller\ProductController::delete
     requirements: 
         slug: '[a-z0-9\-]+'
@@ -30,29 +32,37 @@ app_product_show:
     requirements: 
         slug: '[a-z0-9\-]+'
     methods: ['GET']
+# ------------API-METEO&PDF--------------#
 app_api_meteo:
     path: /meteo
     controller: App\Controller\ApiController::meteo
 app_download_pdf:
     path: /download/pdf
     controller: App\Controller\ApiController::pdf
+# ------------TAG--------------#
 app_tag_liste:
     path: /tag/liste
     controller: App\Controller\TagController::liste
     methods: ['GET']
 app_tag_create:
-    path: /tag/create
+    path: /admin/tag/create
     controller: App\Controller\TagController::create
     methods: ['GET', 'POST']
 app_tag_update:
-    path: /tag/update/{id}
+    path: /admin/tag/update/{id}
     controller: App\Controller\TagController::update
     requirements:
         slug: '[0-9]+'
     methods: ['GET', 'POST']
 app_tag_delete:
-    path: /tag/delete/{id}
+    path: /admin/tag/delete/{id}
     controller: App\Controller\TagController::delete
     requirements:
         slug: '[0-9]+'
     methods: ['GET', 'POST']
+# ------------LOGIN&LOGOUT&USER--------------#
+app_logout:
+    path: /logout
+app_user_log:
+    path: /admin/login/liste
+    controller: App\Controller\AuthController::liste

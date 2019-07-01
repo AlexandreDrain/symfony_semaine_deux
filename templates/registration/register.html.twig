@@ -8,7 +8,13 @@
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
-
-    <button class="btn">Inscription</button>
+    <input type="radio" id="role" name="role" value="moderateur">
+    <label for="moderateur" id="role">Moderateur</label>
+    <input type="radio" id="role" name="role" value="admin">
+    <label for="admin" id="role">Admin</label>
+    <input type="radio" id="role" name="role" value="supAdmin">
+    <label for="supAdmin" id="role">Super-Admin</label>
+    <br>
+    <input type="submit" class="btn btn-success" value="S'inscrire">
     {{ form_end(registrationForm) }}
 {% endblock %}
