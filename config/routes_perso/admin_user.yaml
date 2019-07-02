@@ -1,0 +1,3 @@
+changerole:
+  path: /changerole/{id}
+  controller: App\Controller\AdminController::changeRole

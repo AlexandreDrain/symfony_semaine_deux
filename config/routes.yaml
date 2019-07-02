@@ -6,32 +6,10 @@ app_homepage:
     path: /
     controller: App\Controller\HomeController::index
 # ------------PRODUCT--------------#
-app_product_create:
-    path: /admin/products/create
-    controller: App\Controller\ProductController::create
-    methods: ['GET', 'POST']
-app_product_liste:
-    path: /products/liste
-    controller: App\Controller\ProductController::liste
-    methods: ['GET']
-app_product_update:
-    path: /admin/products/update
-    controller: App\Controller\ProductController::update
-    requirements: 
-        slug: '[a-z0-9\-]+'
-    methods: ['GET', 'POST']
-app_product_delete:
-    path: /admin/products/suppression/jesuissur/delete
-    controller: App\Controller\ProductController::delete
-    requirements: 
-        slug: '[a-z0-9\-]+'
-    methods: ['GET', 'POST']
-app_product_show:
-    path: /products/{slug}
-    controller: App\Controller\ProductController::show
-    requirements: 
-        slug: '[a-z0-9\-]+'
-    methods: ['GET']
+app_products_route:
+    resource: routes_perso/app_products.yaml
+    prefix: /products
+    name_prefix: app_product_
 # ------------API-METEO&PDF--------------#
 app_api_meteo:
     path: /meteo
@@ -63,6 +41,11 @@ app_tag_delete:
 # ------------LOGIN&LOGOUT&USER--------------#
 app_logout:
     path: /logout
-app_user_log:
-    path: /admin/login/liste
-    controller: App\Controller\AuthController::liste
+app_user_liste:
+    path: /admin/user/liste
+    controller: App\Controller\AdminController::liste
+# ------------------ADMIN--------------------#
+app_admin_user:
+    resource: routes_perso/admin_user.yaml
+    prefix: /admin/user
+    name_prefix: admin_user_
