@@ -93,6 +93,13 @@ class Produit
      */
     private $slug;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="produits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $publisher;
+
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -265,4 +272,17 @@ class Produit
 
         return $this;
     }
+
+    public function getPublisher(): ?User
+    {
+        return $this->publisher;
+    }
+
+    public function setPublisher(?User $publisher): self
+    {
+        $this->publisher = $publisher;
+
+        return $this;
+    }
+
 }

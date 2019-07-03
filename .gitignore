@@ -6,6 +6,7 @@
 /public/bundles/
 /var/
 /vendor/
+/BDD_DATA/
 ###< symfony/framework-bundle ###
 
 ###> squizlabs/php_codesniffer ###

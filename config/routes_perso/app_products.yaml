@@ -14,9 +14,3 @@ delete:
   requirements:
     slug: '[a-z0-9\-]+'
   methods: ['GET', 'POST']
-show:
-  path: /{slug}
-  controller: App\Controller\ProductController::show
-  requirements:
-    slug: '[a-z0-9\-]+'
-  methods: ['GET']

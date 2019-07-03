@@ -14,6 +14,12 @@ app_products_liste:
     path: /products/liste
     controller: App\Controller\ProductController::liste
     methods: ['GET']
+app_products_show:
+    path: /products/{slug}
+    controller: App\Controller\ProductController::show
+    requirements:
+        slug: '[a-z0-9\-]+'
+    methods: ['GET']
 # ------------API-METEO&PDF--------------#
 app_api_meteo:
     path: /admin/meteo

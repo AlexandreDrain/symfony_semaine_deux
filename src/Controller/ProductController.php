@@ -1,14 +1,13 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Entity\Produit;
 use App\Form\ProductType;
-use App\Repository\ProductRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProductController extends AbstractController
 {
@@ -25,12 +24,15 @@ class ProductController extends AbstractController
         //
         return $this->render('products/liste.html.twig', ['products' => $products]);
     }
+
     /**
      * Affiche une page HTML (Création d'un produit)
-     * @var  Request
+     * @param Request $requestHTTP
+     * @param UserInterface $user
+     * @param ObjectManager $manager
      * @return Response
      */
-    public function create(Request $requestHTTP): Response
+    public function create(Request $requestHTTP, ObjectManager $manager, UserInterface $user): Response
     {
         // Récupération du formulaire
         $product = new Produit();
@@ -39,8 +41,8 @@ class ProductController extends AbstractController
         $formProduct->handleRequest($requestHTTP);
         // On vérifie que le formulaire est sommis et valide
         if ($formProduct->isSubmitted() && $formProduct->isValid()) {
-            // On sauvegarde le produit en BDD grace a un manager
-            $manager = $this->getDoctrine()->getManager();
+            // On attribut l'utilisateur connecté en temps que publicateur de ce nouvel article
+            $product->setPublisher($user);
             $manager->persist($product);
             $manager->flush();
 
@@ -61,35 +63,40 @@ class ProductController extends AbstractController
     /**
      * Affiche et traite le formulaire de modification d'un produit
      * @param Request $requestHTTP
+     * @param ObjectManager $manager
      * @param Produit $product
+     * @param UserInterface $user
      * @return Response
      */
-    public function update(Request $requestHTTP, Produit $product): Response
+    public function update(Request $requestHTTP, ObjectManager $manager,  Produit $product, UserInterface $user): Response
     {
-        // Récupération du formulaire
-        $formProduct = $this->createForm(ProductType::class, $product);
-        // On envoie les données postées au formulaire
-        $formProduct->handleRequest($requestHTTP);
-        // On vérifie que le formulaire est sommis et valide
-        if ($formProduct->isSubmitted() && $formProduct->isValid()) {
-            // On sauvegarde le produit en BDD grace a un manager
-            $manager = $this->getDoctrine()->getManager();
-            $manager->flush();
+        if ($product->getPublisher() === $user || $this->isGranted('ROLE_MODERATEUR')) {
+            // Récupération du formulaire
+            $formProduct = $this->createForm(ProductType::class, $product);
+            // On envoie les données postées au formulaire
+            $formProduct->handleRequest($requestHTTP);
+            // On vérifie que le formulaire est sommis et valide
+            if ($formProduct->isSubmitted() && $formProduct->isValid()) {
+                $manager->flush();
 
-            // Ajout d'un message flash
-            $this->addFlash('warning', 'Le produit a bien était modifié');
-            // Petite redirection des familles
-            return $this->redirectToRoute('app_products_liste', [
-            'formProduct' => $formProduct->createView()
-            ]);
+                // Ajout d'un message flash
+                $this->addFlash('warning', 'Le produit a bien était modifié');
+                // Petite redirection des familles
+                return $this->redirectToRoute('app_products_liste', [
+                    'formProduct' => $formProduct->createView()
+                ]);
+            }
+            return $this->render(
+                'products/modify.html.twig',
+                [
+                    'formProduct' => $formProduct->createView()
+                ]
+            );
+        } else {
+            throw $this->createAccessDeniedException(
+                "Vous n'êtes pas le créateur de cette article, vous ne pouvez par concéquent pas modifier celui-ci"
+            );
         }
-
-        return $this->render(
-            'products/modify.html.twig',
-            [
-            'formProduct' => $formProduct->createView()
-            ]
-        );
     }
 
     /**
