@@ -32,7 +32,7 @@ class Produit
     /**
      * @ORM\Column(type="text")
      * @Assert\Length(
-     *  min=25,
+     *  min=10,
      *  max=4000
      * )
      */
@@ -40,7 +40,8 @@ class Produit
 
     /**
      * @ORM\Column(type="decimal", precision=9, scale=2)
-     * @Assert\Length(
+     * @Assert\Type(type="float")
+     * @Assert\Range(
      *  min=0,
      *  max=9999999.99
      * )

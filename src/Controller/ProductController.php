@@ -47,7 +47,7 @@ class ProductController extends AbstractController
             // Ajout d'un message flash
             $this->addFlash('success', 'le produit a bien était ajouté');
             // Petite redirection des familles
-            return $this->redirectToRoute('app_product_liste');
+            return $this->redirectToRoute('app_products_liste');
         }
 
         return $this->render(
@@ -61,10 +61,10 @@ class ProductController extends AbstractController
     /**
      * Affiche et traite le formulaire de modification d'un produit
      * @param Request $requestHTTP
-     * @param Product $product
+     * @param Produit $product
      * @return Response
      */
-    public function update(Request $requestHTTP, string $product): Response
+    public function update(Request $requestHTTP, Produit $product): Response
     {
         // Récupération du formulaire
         $formProduct = $this->createForm(ProductType::class, $product);
@@ -79,7 +79,7 @@ class ProductController extends AbstractController
             // Ajout d'un message flash
             $this->addFlash('warning', 'Le produit a bien était modifié');
             // Petite redirection des familles
-            return $this->redirectToRoute('app_product_liste', [
+            return $this->redirectToRoute('app_products_liste', [
             'formProduct' => $formProduct->createView()
             ]);
         }
@@ -105,10 +105,12 @@ class ProductController extends AbstractController
         $manager->flush();
         // Ajout d'un message flash
         $this->addFlash('danger', 'Le produit est supprimé');
-        return $this->redirectToRoute('app_product_liste');
+        return $this->redirectToRoute('app_products_liste');
     }
+
     /**
      * Affiche une page HTML (détails du produit)
+     * @param string $slug
      * @return Response
      */
     public function show(string $slug): Response

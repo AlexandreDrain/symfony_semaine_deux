@@ -8,11 +8,15 @@ app_homepage:
 # ------------PRODUCT--------------#
 app_products_route:
     resource: routes_perso/app_products.yaml
-    prefix: /products
-    name_prefix: app_product_
+    prefix: /admin/products
+    name_prefix: app_products_
+app_products_liste:
+    path: /products/liste
+    controller: App\Controller\ProductController::liste
+    methods: ['GET']
 # ------------API-METEO&PDF--------------#
 app_api_meteo:
-    path: /meteo
+    path: /admin/meteo
     controller: App\Controller\ApiController::meteo
 app_download_pdf:
     path: /download/pdf

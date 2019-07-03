@@ -1,8 +1,10 @@
 <?php
 namespace App\Repository;
+
 use App\Entity\Role;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+
 /**
  * @method Role|null find($id, $lockMode = null, $lockVersion = null)
  * @method Role|null findOneBy(array $criteria, array $orderBy = null)

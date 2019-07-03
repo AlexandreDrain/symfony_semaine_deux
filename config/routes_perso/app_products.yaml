@@ -2,18 +2,14 @@ create:
   path: /create
   controller: App\Controller\ProductController::create
   methods: ['GET', 'POST']
-liste:
-  path: /liste
-  controller: App\Controller\ProductController::liste
-  methods: ['GET']
 update:
-  path: /update
+  path: /update/{slug}
   controller: App\Controller\ProductController::update
   requirements:
     slug: '[a-z0-9\-]+'
   methods: ['GET', 'POST']
 delete:
-  path: /suppression/jesuissur/delete
+  path: /suppression/jesuissur/delete/{slug}
   controller: App\Controller\ProductController::delete
   requirements:
     slug: '[a-z0-9\-]+'

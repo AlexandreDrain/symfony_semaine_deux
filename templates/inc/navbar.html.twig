@@ -12,8 +12,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produit</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ path('app_product_liste') }}">Liste des produit</a>
-                        <a class="dropdown-item" href="{{ path('app_product_create') }}">Création de produits</a>
+                        <a class="dropdown-item" href="{{ path('app_products_liste') }}">Liste des produit</a>
+                        {% if is_granted("ROLE_ADMIN") %}
+                        <a class="dropdown-item" href="{{ path('app_products_create') }}">Création de produits</a>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -21,7 +23,9 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">categories</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ path('category_index') }}">Liste des catégories</a>
-                        <a class="dropdown-item" href="{{ path('category_new') }}">Créer une catégorie</a>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <a class="dropdown-item" href="{{ path('category_new') }}">Créer une catégorie</a>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -29,29 +33,50 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ path('app_tag_liste') }}">Liste des tags</a>
+                        {% if is_granted("ROLE_ADMIN") %}
                         <a class="dropdown-item" href="{{ path('app_tag_create') }}">Créer un tag</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Se connecter</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ path('app_register') }}">s'inscrire</a>
-                        <a class="dropdown-item" href="{{ path('app_login') }}">s'identifier</a>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
                 </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plus</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" target="_blank" href="{{ path('app_download_pdf') }}">pdf</a>
-                        <a class="dropdown-item" target="_blank" href="{{ path('app_api_meteo') }}">Api meteo</a>
-                    </div>
-                </li>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin') }}">Administrateur</a>
+                    </li>
+                {% endif %}
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user_liste') }}">Liste utilisateur</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plus</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" target="_blank" href="{{ path('app_download_pdf') }}">pdf</a>
+                            <a class="dropdown-item" target="_blank" href="{{ path('app_api_meteo') }}">Api meteo</a>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li class="nav-item">
+                        <a href="{{ path('app_logout') }}" class="nav-link">Déconnexion</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Se connecter</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ path('app_register') }}">s'inscrire</a>
+                            <a class="dropdown-item" href="{{ path('app_login') }}">s'identifier</a>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
