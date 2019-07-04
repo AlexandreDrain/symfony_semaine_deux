@@ -14,19 +14,17 @@
                              alt="Image de {{ product.productName }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.productName }}</h5>
+                            <p class="card-text">Publié par : {{ product.publisher.email }}</p>
                             <p class="card-text">{{ product.productDescription | nl2br | slice(0,50)}}</p>
                             <p class="card-text badge badge-info">Prix : {{ product.price }}€</p>
                             <p class="card-text">Publié le : {{ product.createdAt | date('d/m/y à H:i') }}, vue {{ product.nbViews }} fois</p>
                             <p class="card-text">Catégorie : {{ product.category.name }}</p>
                             <div class="btn-group">
                                 <a href="{{ path('app_products_show', {'slug' : product.slug}) }}" class="card-link btn btn-outline-info">Détail</a>
-                                {% if is_granted('ROLE_MODERATEUR') and is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-
-                                    {% if product.getPublisher() == app.user %}
+                                    {% if product.getPublisher() == app.user or is_granted('ROLE_MODERATEUR')%}
                                         <a href="{{ path('app_products_update', {'slug' : product.slug}) }}"
                                            class="card-link btn btn-outline-warning">Modifier</a>
                                     {% endif %}
-                                {% endif %}
                                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                                     <a href="{{ path('app_products_delete', {'slug' : product.slug}) }}" class="card-link btn btn-outline-danger">Supprimer</a>
                                 {% endif %}

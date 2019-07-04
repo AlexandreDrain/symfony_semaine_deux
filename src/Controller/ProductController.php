@@ -68,7 +68,7 @@ class ProductController extends AbstractController
      * @param UserInterface $user
      * @return Response
      */
-    public function update(Request $requestHTTP, ObjectManager $manager,  Produit $product, UserInterface $user): Response
+    public function update(Request $requestHTTP, ObjectManager $manager, Produit $product, UserInterface $user): Response
     {
         if ($product->getPublisher() === $user || $this->isGranted('ROLE_MODERATEUR')) {
             // Récupération du formulaire
@@ -102,16 +102,19 @@ class ProductController extends AbstractController
     /**
      * Suppression d'un produit
      * @param Produit $product
+     * @param ObjectManager $manager
+     * @param Request $request
      * @return Response
      */
-    public function delete(Produit $product): Response
+    public function delete(Produit $product, ObjectManager $manager, Request $request): Response
     {
-        // On sauvegarde le produit en BDD grâce au manager
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($product);
-        $manager->flush();
-        // Ajout d'un message flash
-        $this->addFlash('danger', 'Le produit est supprimé');
+        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+            // On sauvegarde le produit en BDD grâce au manager
+            $manager->remove($product);
+            $manager->flush();
+            // Ajout d'un message flash
+            $this->addFlash('danger', 'Le produit est supprimé');
+        }
         return $this->redirectToRoute('app_products_liste');
     }
 

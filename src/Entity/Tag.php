@@ -33,6 +33,15 @@ class Tag
         $this->produits = new ArrayCollection();
     }
 
+    /**
+     * On définie cette méthode pour afficher le nom de la catégorie dans la liste déroulante du formulaire
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->label;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

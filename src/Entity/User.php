@@ -66,6 +66,14 @@ class User implements UserInterface
 
         return $this;
     }
+    /**
+     * On définie cette méthode pour afficher le nom de la catégorie dans la liste déroulante du formulaire
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->email;
+    }
 
     /**
      * A visual identifier that represents this user.
@@ -158,6 +166,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-
 }

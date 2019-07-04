@@ -108,6 +108,15 @@ class Produit
     }
 
     /**
+     * On définie cette méthode pour afficher le nom de la catégorie dans la liste déroulante du formulaire
+     * @return mixed
+     */
+    public function __toString()
+    {
+        return $this->productName;
+    }
+
+    /**
      * Met a jour le slug par rapport au name
      * @return Produit
      */
@@ -284,5 +293,4 @@ class Produit
 
         return $this;
     }
-
 }

@@ -71,13 +71,16 @@ class TagController extends AbstractController
     /**
      * @param ObjectManager $manager
      * @param Tag $tag
+     * @param Request $request
      * @return Response
      */
-    public function delete(ObjectManager $manager, Tag $tag): Response
+    public function delete(ObjectManager $manager, Tag $tag, Request $request): Response
     {
-        $manager->remove($tag);
-        $manager->flush();
-        $this->addFlash('danger', 'Tag supprimé... -__-');
+        if ($this->isCsrfTokenValid('delete'.$tag->getId(), $request->request->get('_token'))) {
+            $manager->remove($tag);
+            $manager->flush();
+            $this->addFlash('danger', 'Tag supprimé... -__-');
+        }
         return $this->redirectToRoute('app_tag_liste');
     }
 }
