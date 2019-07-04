@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Produit
 {
@@ -84,7 +85,7 @@ class Produit
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="produits")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="produits", )
      */
     private $tags;
 
@@ -104,7 +105,6 @@ class Produit
     {
         $this->tags = new ArrayCollection();
         $this->nbViews = 0;
-        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -114,6 +114,22 @@ class Produit
     public function __toString()
     {
         return $this->productName;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function refreshUpdatedAt()
+    {
+        $this->updateAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function refreshCreateddAt()
+    {
+        $this->createdAt = new \DateTime();
     }
 
     /**

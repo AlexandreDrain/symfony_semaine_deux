@@ -2,5 +2,22 @@
 
 {% block body %}
     <h1>Modifier un produit</h1>
-        {{ form(formProduct) }}
+        {#{ form_start(formProduct) }}
+            {{ form_row(formProduct.productName) }}
+            {{ form_row(formProduct.productDescription) }}
+            {{ form_row(formProduct.price) }}
+            {{ form_row(formProduct.isPublished) }}
+            {{ form_row(formProduct.category) }}
+            {{ form_row(formProduct.createdAt) }}
+
+            <ul class="tags">
+                {% for tag in formProduct.tags %}
+                    {{ form.row(tag.label) }}
+                {% endfor %}
+            </ul>
+        {{ form_end(formProduct) }#}
+    {# Dans le cas ou je veux faire apparaitre les tags difectement dans la creation des produtis#}
+
+    {{ form(formProduct) }}
+
 {% endblock %}
