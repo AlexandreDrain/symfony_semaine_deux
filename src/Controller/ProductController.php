@@ -82,9 +82,7 @@ class ProductController extends AbstractController
                 // Ajout d'un message flash
                 $this->addFlash('warning', 'Le produit a bien était modifié');
                 // Petite redirection des familles
-                return $this->redirectToRoute('app_products_liste', [
-                    'formProduct' => $formProduct->createView()
-                ]);
+                return $this->redirectToRoute('app_products_liste');
             }
             return $this->render(
                 'products/modify.html.twig',
@@ -108,7 +106,7 @@ class ProductController extends AbstractController
      */
     public function delete(Produit $product, ObjectManager $manager, Request $request): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             // On sauvegarde le produit en BDD grâce au manager
             $manager->remove($product);
             $manager->flush();

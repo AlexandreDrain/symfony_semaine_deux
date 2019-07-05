@@ -140,6 +140,7 @@ class Produit
     public function refreshCreateddAt()
     {
         $this->createdAt = new \DateTime();
+        $this->updateSlug();
     }
 
     /**
@@ -251,7 +252,7 @@ class Produit
         return $this->imageName;
     }
 
-    public function setImageName(string $imageName): self
+    public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
 
@@ -326,6 +327,7 @@ class Produit
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+
     }
 
     /**

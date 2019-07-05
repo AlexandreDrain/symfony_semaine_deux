@@ -1,10 +1,13 @@
 easy_admin:
+    site_name: 'Alexandre'
     entities:
         # List the entity class name you want to manage
         Product:
             class: App\Entity\Produit
             form:
                 fields: ['productName', 'productDescription', 'price', 'isPublished', 'imageName', 'category', 'publisher']
+            list:
+                flieds: ['productName', 'price', 'category', 'isPublished', 'imageName', 'publisher']
         Category:
             class: App\Entity\Category
         User:

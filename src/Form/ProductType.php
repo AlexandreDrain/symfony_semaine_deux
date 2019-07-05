@@ -19,7 +19,6 @@ class ProductType extends AbstractType
             ->add('productDescription', null, ['label' => 'Description du produit'])
             ->add('price', null, ['label' => 'Prix'])
             ->add('isPublished', null, ['label' => 'Voulez vous publier ce produit ?'])
-            ->add('imageName', null, ['label' => 'Nom de l\'image avec l\'extention'])
             ->add('ImageFile', FileType::class, [
                 'label' => 'Choisir une image'
             ])

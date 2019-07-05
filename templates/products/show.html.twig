@@ -9,7 +9,7 @@
         <section class="row">
                 <div class="col-4">
                     <div class="card">
-                        <img src="/assets/images/{{ product.imageName }}" class="card-img-top"
+                        <img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top"
                              alt="Image de {{ product.productName }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ product.productName }}</h5>
