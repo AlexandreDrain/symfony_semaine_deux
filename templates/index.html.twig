@@ -13,5 +13,13 @@
                 esse est fuga fugit inventore nesciunt odio officiis, optio praesentium quisquam sed sit totam vel voluptatibus.
             </p>
         </section>
+
+
+        <h1 class="mt-2">Présentation des produits</h1>
+        {% include 'products/product_paginate.html.twig' with {products : paginatedResults} %}
+
+        <div class="navigation">
+            {{ knp_pagination_render(paginatedResults) }}
+        </div>
     </main>
 {% endblock %}

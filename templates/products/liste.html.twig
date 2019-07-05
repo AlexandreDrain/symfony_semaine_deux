@@ -6,33 +6,7 @@
     <h1>Liste des produits</h1>
     <main class="container">
         <h1 class="mt-2">Présentation des produits</h1>
-        <section class="row">
-            {% for product in products %}
-                <div class="col-4">
-                    <div class="card">
-                        <img src="{{ vich_uploader_asset(product, 'imageFile') }}" class="card-img-top"
-                             alt="Image de {{ product.productName }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.productName }}</h5>
-                            <p class="card-text">Publié par : {{ product.publisher.email }}</p>
-                            <p class="card-text">{{ product.productDescription | nl2br | slice(0,50)}}</p>
-                            <p class="card-text badge badge-info">Prix : {{ product.price }}€</p>
-                            <p class="card-text">Publié le : {{ product.createdAt | date('d/m/y à H:i') }}, vue {{ product.nbViews }} fois</p>
-                            <p class="card-text">Catégorie : {{ product.category.name }}</p>
-                            <div class="btn-group">
-                                <a href="{{ path('app_products_show', {'slug' : product.slug}) }}" class="card-link btn btn-outline-info">Détail</a>
-                                    {% if product.getPublisher() == app.user or is_granted('ROLE_MODERATEUR')%}
-                                        <a href="{{ path('app_products_update', {'slug' : product.slug}) }}"
-                                           class="card-link btn btn-outline-warning">Modifier</a>
-                                    {% endif %}
-                                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                    {% include '/products/_delete_form.html.twig' %}
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </section>
+        {% include 'products/product_paginate.html.twig' with {products : products} %}
+
     </main>
 {% endblock %}
